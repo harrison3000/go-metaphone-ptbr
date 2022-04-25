@@ -319,6 +319,29 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 				MetaphAddChr(primary, 'K')
 			}
 
+		case 'H':
+			/*
+			 * only considers the vowels after 'H' if only they are on
+			 * the beginning of the word
+			 */
+
+			if WORD_EDGE(last_char) {
+				ahead_char := GetAt(original, current+1)
+				if isVowel(ahead_char) {
+					MetaphAddChr(primary, ahead_char)
+					/* this will provoque some words behavior differently,
+					 * which can be desirable, due differences between
+					 * sounds and writting. Ex: HOSANA will be mapped to
+					 * 'S' sound, instead 'Z'.
+					 * OBS: para voltar à representação de Z, comente a linha abaixo
+					 */
+					current++
+				}
+			}
+
+		case 'Q':
+			MetaphAddChr(primary, 'K')
+
 		}
 
 		/* next char */
