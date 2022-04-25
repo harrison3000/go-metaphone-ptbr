@@ -47,7 +47,7 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 	var last_char rune
 
 	original := []rune(s)
-	original = append(original, 0) //NULL terminator falso, pra WORD_EDGE funcionar, entre outras coisas
+	original = append(original, separator) //separador no final, pra WORD_EDGE funcionar, entre outras coisas
 
 	//Neste loop eu tentei ao maximo preservar os nome de variaveis e
 	//comentários da versão original em C
@@ -341,6 +341,24 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 
 		case 'Q':
 			MetaphAddChr(primary, 'K')
+
+		case 'W':
+			ahead_char := GetAt(original, current+1)
+			if isVowel(ahead_char) {
+				MetaphAddChr(primary, 'V')
+			} else if ahead_char == 'L' || ahead_char == 'R' {
+				/* sugestão de luisfurquim@gmail.com p/ Wladimir e Wrana */
+				MetaphAddChr(primary, 'V')
+			}
+
+			/* desconsiderar o W no final das palavras, por ter som de U,
+			 * ou ainda seguidos por consoantes, por ter som de U (Newton)
+
+			* soluções para www?
+			*/
+
+		case 'Ç':
+			MetaphAddChr(primary, 'S')
 
 		}
 
