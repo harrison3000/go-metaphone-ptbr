@@ -108,12 +108,28 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 				fallthrough //ta certo? TODO testar
 			case 'E', 'I':
 				MetaphAddChr(primary, 'J')
-				break
-
 			default:
 				MetaphAddChr(primary, 'G')
 			}
-			//TODO continuar tradução
+
+		case 'R':
+			ahead_char := GetAt(original, current+1)
+
+			/* como em andar, carro, rato */
+			if WORD_EDGE(last_char) || WORD_EDGE(ahead_char) {
+				MetaphAddChr(primary, '2')
+			} else if ahead_char == 'R' {
+				MetaphAddChr(primary, '2')
+				current++
+			} else if isVowel(last_char) && isVowel(ahead_char) {
+				/* como em arara */
+				MetaphAddChr(primary, 'R')
+				current++
+			} else {
+				/* todo o resto, como em arsenico */
+				MetaphAddChr(primary, 'R')
+			}
+
 		}
 
 		/* next char */
