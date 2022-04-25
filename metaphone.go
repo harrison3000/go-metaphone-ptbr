@@ -88,9 +88,14 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 					MetaphAddChr(primary, 'F')
 				} else {
 					MetaphAddChr(primary, 'T')
-					current++
 				}
+				current++
+				break
 			}
+			fallthrough
+		case 'B', 'D', 'F', 'J', 'K', 'M', 'V':
+			MetaphAddChr(primary, current_char)
+
 			//TODO continuar tradução
 			_ = current
 		}
