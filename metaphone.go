@@ -130,6 +130,16 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 				MetaphAddChr(primary, 'R')
 			}
 
+		case 'Z':
+			ahead_char := GetAt(original, current+1)
+
+			if WORD_EDGE(ahead_char) {
+				/* termina com, como em algoz */
+				MetaphAddChr(primary, 'S')
+			} else {
+				MetaphAddChr(primary, 'Z')
+			}
+
 		}
 
 		/* next char */
