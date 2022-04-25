@@ -291,6 +291,34 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 				MetaphAddChr(primary, 'X')
 			}
 
+		case 'C': /* ca, ce, ci, co, cu */
+			ahead_char := GetAt(original, current+1)
+			switch ahead_char {
+			case 'E', 'I':
+				MetaphAddChr(primary, 'S')
+
+			case 'H':
+				/* christiano. */
+				if GetAt(original, current+2) == 'R' {
+					MetaphAddChr(primary, 'K')
+
+				} else {
+					/* CHapéu, chuva */
+					MetaphAddChr(primary, 'X')
+				}
+				current++
+
+			case 'Q':
+			case 'K':
+				/* Jacques - não fazer nada. Deixa o 'Q' cuidar disso
+				 * ou palavras com CK, mesma coisa.
+				 */
+				break
+
+			default:
+				MetaphAddChr(primary, 'K')
+			}
+
 		}
 
 		/* next char */
