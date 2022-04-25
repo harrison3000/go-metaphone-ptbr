@@ -140,6 +140,24 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 				MetaphAddChr(primary, 'Z')
 			}
 
+		case 'N':
+			ahead_char := GetAt(original, current+1)
+
+			/* no português, todas as palavras terminam com 'M', exceto
+			 * no caso de nomes próprios, ou estrangeiros. Para todo caso,
+			 * tem som de 'M'
+			 */
+			if WORD_EDGE(ahead_char) {
+				MetaphAddChr(primary, 'M')
+			} else if ahead_char == 'H' {
+				/* aranha, nhoque, manha */
+				MetaphAddChr(primary, '3')
+				current++
+			} else if last_char != 'N' {
+				/* duplicado... */
+				MetaphAddChr(primary, 'N')
+			}
+
 		}
 
 		/* next char */
