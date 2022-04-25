@@ -32,6 +32,10 @@ import (
 	"unicode"
 )
 
+func Metaphone_PTBR(str string, max_length int) string {
+	return Metaphone_PTBR_s(str, max_length, 0)
+}
+
 func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 	s = makeUpperAndClean(s)
 
