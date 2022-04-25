@@ -1,4 +1,4 @@
-module github.com/harrison3000/go-metaphone-ptb
+module github.com/harrison3000/go-metaphone-ptbr
 
 go 1.18
 
