@@ -95,9 +95,25 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 			fallthrough
 		case 'B', 'D', 'F', 'J', 'K', 'M', 'V':
 			MetaphAddChr(primary, current_char)
+		/* checar consoantes com som confuso e similares */
+		case 'G':
+			ahead_char := GetAt(original, current+1)
+			switch ahead_char {
+			case 'H':
+				/* H sempre complica a vida. Se não for vogal, tratar como 'G',
+				   caso contrário segue o fluxo abaixo. */
+				if !isVowel(GetAt(original, current+2)) {
+					MetaphAddChr(primary, 'G')
+				}
+				fallthrough //ta certo? TODO testar
+			case 'E', 'I':
+				MetaphAddChr(primary, 'J')
+				break
 
+			default:
+				MetaphAddChr(primary, 'G')
+			}
 			//TODO continuar tradução
-			_ = current
 		}
 
 		/* next char */
