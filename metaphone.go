@@ -61,8 +61,7 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 
 		if separator == current_char {
 			MetaphAddChr(primary, separator)
-			last_char = current_char
-			continue
+			goto finalzinho //melhor goto do que identar um monte de codigo ou repetir o final
 		}
 
 		switch current_char {
@@ -367,6 +366,7 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 
 		}
 
+	finalzinho:
 		/* next char */
 		current++
 		last_char = current_char
