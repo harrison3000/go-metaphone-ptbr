@@ -51,11 +51,12 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 	var last_char rune
 
 	original := []rune(s)
+	length := len(original)
 	original = append(original, separator) //separador no final, pra WORD_EDGE funcionar, entre outras coisas
 
 	//Neste loop eu tentei ao maximo preservar os nome de variaveis e
 	//comentários da versão original em C
-	for current := 0; primary.Len() < max_length && current < len(original); {
+	for current := 0; primary.Len() < max_length && current < length; {
 		current_char := GetAt(original, current)
 
 		if separator == current_char {

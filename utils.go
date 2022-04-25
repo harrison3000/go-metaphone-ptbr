@@ -83,7 +83,7 @@ func isVowel(c rune) bool {
 }
 
 func getAt(r []rune, i int) rune {
-	if i < 1 || i >= len(r) {
+	if i < 0 || i >= len(r) {
 		return 0
 	}
 	return r[i]
