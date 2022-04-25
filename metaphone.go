@@ -203,6 +203,94 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 				MetaphAddChr(primary, 'S')
 			}
 
+		case 'X':
+			/* there is too many exceptions to work on... ahh! */
+			//TODO: tem muitos testes a fazer nesse caso
+			last2_char := GetAt(original, current-2)
+			ahead_char := GetAt(original, current+1)
+
+			/* fax, anticlímax e todos terminados com 'X' */
+			if WORD_EDGE(ahead_char) {
+				/* fax, anticlímax e todos terminados com 'X' */
+
+				/* o som destes casos:
+				 * MetaphAdd(primary,"KS");
+				 * para manter compatibilidade com outra implementação, usar abaixo
+				 * como em: Felix, Alex
+				 * Na verdade, para o computador tanto faz. Se todos usarem o mesmo
+				 * significado, o computador sabe q são iguais, não que som q tem.
+				 * A discussão está na representação acurada ou não da fonética.
+				 */
+				MetaphAdd(primary, "X")
+			} else if last_char == 'E' {
+				/* ...ex... */
+				if isVowel(ahead_char) {
+					/* começados com EX. Exonerar, exército, executar, exemplo, exame, exílio = ex + vowel
+					 * exuberar
+					 */
+					if WORD_EDGE(last2_char) {
+						/* deixado com o som original dele */
+						MetaphAddChr(primary, 'Z')
+					} else {
+						switch ahead_char {
+						case 'E', 'I':
+							/* México, mexerica, mexer */
+							MetaphAddChr(primary, 'X')
+							current++
+
+						default:
+							/* Anexar, sexo, convexo, nexo, circunflexo
+							 * sexual
+							 * inclusive Alex e Alexandre, o que eh
+							 * bom, pois há Aleksandro ou Alex sandro
+							 * OBS: texugo cai aqui. Vítima de guerra.
+							 */
+							MetaphAdd(primary, "KS")
+							current++
+
+						}
+					}
+				} else if ahead_char == 'C' {
+					/* exceção, exceto */
+					MetaphAddChr(primary, 'S')
+					current++
+
+				} else if ahead_char == 'P' || ahead_char == 'T' {
+					/* expatriar, experimentar, extensão, exterminar. Infelizmente, êxtase cai aqui */
+					MetaphAdd(primary, "S")
+				} else {
+					/* catch all exceptions */
+					MetaphAdd(primary, "KS")
+				}
+			} else if isVowel(last_char) {
+				/* parece que certas sílabas predecessoras do 'x' como
+				 * 'ca' em 'abacaxi' provocam o som de 'CH' no 'x'.
+				 * com exceção do 'm', q é mais complexo.
+				 */
+
+				/* faxina. Fax é tratado acima. */
+				switch last2_char {
+				/* encontros vocálicos */
+				case 'A', 'E', 'I', 'O', 'U': /* caixa, trouxe, abaixar, frouxo, guaxo, Teixeira */
+				case 'C': /* coxa, abacaxi */
+				case 'K':
+				case 'G': /* gaxeta */
+				case 'L': /* laxante, lixa, lixo */
+				case 'R': /* roxo, bruxa */
+				case 'X': /* xaxim */
+					MetaphAddChr(primary, 'X')
+
+				default:
+					/* táxi, axila, axioma, tóxico, fixar, fixo, monóxido, óxido */
+					/* maxilar e enquadra máximo aqui tb, embora não seja correto. */
+					MetaphAdd(primary, "KS")
+
+				}
+			} else {
+				/* anything else... enxame, enxada, -- catch all exceptions :( */
+				MetaphAddChr(primary, 'X')
+			}
+
 		}
 
 		/* next char */
