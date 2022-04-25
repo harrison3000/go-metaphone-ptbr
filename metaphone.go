@@ -38,6 +38,7 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 	primary := &strings.Builder{}
 
 	MetaphAddChr := (*strings.Builder).WriteRune
+	MetaphAdd := (*strings.Builder).WriteString
 	WORD_EDGE := func(c rune) bool {
 		return c == 0 || unicode.IsSpace(c) || c == separator
 	}
@@ -156,6 +157,50 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 			} else if last_char != 'N' {
 				/* duplicado... */
 				MetaphAddChr(primary, 'N')
+			}
+
+		case 'S':
+			ahead_char := GetAt(original, current+1)
+
+			if ahead_char == 'S' {
+				/* aSSar */
+				MetaphAddChr(primary, 'S')
+				last_char = ahead_char
+				current++
+			} else if ahead_char == 'H' {
+				/* mais estrangeirismo: sheila, mishel, e compatibilidade sonora com sobrenomes estrangeiros (japoneses) */
+				MetaphAddChr(primary, 'X')
+				current++
+			} else if isVowel(last_char) && isVowel(ahead_char) {
+				/* como em asa */
+				MetaphAddChr(primary, 'Z')
+			} else if ahead_char == 'C' {
+				/* special cases = 'SC' */
+				ahead2_char := GetAt(original, current+2)
+				switch ahead2_char {
+				case 'E', 'I':
+					/* aSCEnder, laSCIvia */
+					MetaphAddChr(primary, 'S')
+					current += 2
+
+				case 'A', 'O', 'U':
+					/* maSCAvo, aSCO, auSCUltar */
+					MetaphAdd(primary, "SK")
+					current += 2
+
+				case 'H':
+					/* estrangeirismo tal como scheila. */
+					MetaphAddChr(primary, 'X')
+					current += 2
+
+				default:
+					/* mesclado */
+					MetaphAddChr(primary, 'S')
+					current++
+				}
+			} else {
+				/* catch all - deve pegar atrás e sapato */
+				MetaphAddChr(primary, 'S')
 			}
 
 		}
