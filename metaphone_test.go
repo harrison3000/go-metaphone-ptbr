@@ -6,6 +6,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+//Valores calculados usando o programa em C
+//foi só mudar a linha de printar o resultado para: printf("\"%s\":\"%s\",\n", argv[count-1], code);
 var pares = map[string]string{
 	"casa":           "KZ",
 	"paralelepipedo": "PRLLPPD",
@@ -56,6 +58,29 @@ var pares = map[string]string{
 	"fixo":           "FKS",
 	"enxame":         "ENXM",
 	"Jacques":        "JKS",
+	"aranha":         "AR3",
+	"chuva":          "XV",
+	"caçada":         "KSD",
+	"quero":          "KR",
+	"quase":          "KZ",
+	"alho":           "A1",
+	"theos":          "TS",
+	"gente":          "JNT",
+	"girar":          "JR2",
+	"gosto":          "GST",
+	"gheto":          "JT",
+	"ghi":            "J",
+	"gho":            "J",
+	"christiano":     "KRSTN",
+	"hoje":           "OJ",
+	"homem":          "OMM",
+	"loha":           "L",
+	"hosana":         "OSN",
+	"Wladimir":       "VLDM2",
+	"vladmir":        "VLDM2",
+	"welington":      "VLNGTM",
+	"ótimo":          "OTM",
+	"último":         "UTM",
 }
 
 func TestMeta(t *testing.T) {
