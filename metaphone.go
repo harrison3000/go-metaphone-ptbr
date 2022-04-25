@@ -275,13 +275,13 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 				/* faxina. Fax é tratado acima. */
 				switch last2_char {
 				/* encontros vocálicos */
-				case 'A', 'E', 'I', 'O', 'U': /* caixa, trouxe, abaixar, frouxo, guaxo, Teixeira */
-				case 'C': /* coxa, abacaxi */
-				case 'K':
-				case 'G': /* gaxeta */
-				case 'L': /* laxante, lixa, lixo */
-				case 'R': /* roxo, bruxa */
-				case 'X': /* xaxim */
+				case 'A', 'E', 'I', 'O', 'U', /* caixa, trouxe, abaixar, frouxo, guaxo, Teixeira */
+					'C', /* coxa, abacaxi */
+					'K',
+					'G', /* gaxeta */
+					'L', /* laxante, lixa, lixo */
+					'R', /* roxo, bruxa */
+					'X': /* xaxim */
 					MetaphAddChr(primary, 'X')
 
 				default:
@@ -312,8 +312,7 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 				}
 				current++
 
-			case 'Q':
-			case 'K':
+			case 'Q', 'K':
 				/* Jacques - não fazer nada. Deixa o 'Q' cuidar disso
 				 * ou palavras com CK, mesma coisa.
 				 */

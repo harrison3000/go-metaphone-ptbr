@@ -55,6 +55,7 @@ var pares = map[string]string{
 	"taxi":           "TKS",
 	"fixo":           "FKS",
 	"enxame":         "ENXM",
+	"Jacques":        "JKS",
 }
 
 func TestMeta(t *testing.T) {
