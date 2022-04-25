@@ -27,64 +27,49 @@
 
 package metaphoneptbr
 
-import "strings"
+import (
+	"strings"
+	"unicode"
+)
 
-func tiraAcentos(c rune) rune {
-	switch c {
-	case 'Á', 'À', 'Ã', 'Â', 'Ä':
-		return 'A'
+func Metaphone_PTBR_s(s string, separator rune) string {
+	s = makeUpperAndClean(s)
 
-	case 'É', 'È', 'Ẽ', 'Ê', 'Ë':
-		return 'E'
+	primary := &strings.Builder{}
 
-	case 'Y', 'Í', 'Ì', 'Ĩ', 'Î', 'Ï':
-		return 'I'
-
-	case 'Ó', 'Ò', 'Õ', 'Ô', 'Ö':
-		return 'O'
-
-	case 'Ú', 'Ù', 'Ũ', 'Û', 'Ü':
-		return 'U'
+	MetaphAddChr := (*strings.Builder).WriteRune
+	WORD_EDGE := func(c rune) bool {
+		return c == 0 || unicode.IsSpace(c) || c == separator
 	}
 
-	return c
-}
+	var last_char rune
 
-func makeUpperAndClean(s string) string {
-	//Não tinha isso no original mas coloquei mesmo assim
-	//TODO validar
-	s = strings.TrimSpace(s)
+	r := []rune(s)
+	r = append(r, 0) //NULL terminator falso, pra WORD_EDGE funcionar, entre outras coisas
 
-	//maiuscula e sem acentos
-	s = strings.ToUpper(s)
-	s = strings.Map(tiraAcentos, s)
+	//Neste loop eu tentei ao maximo preservar os nome de variaveis e
+	//comentários da versão original em C
+	for current, current_char := range r {
 
-	res := strings.Builder{}
-
-	var ultimo rune
-	for _, v := range s {
-		if ultimo == v && v != 'R' && v != 'S' {
+		if separator == current_char {
+			MetaphAddChr(primary, separator)
+			last_char = current_char
 			continue
 		}
 
-		ultimo = v
-		res.WriteRune(v)
+		switch current_char {
+		case 'A', 'E', 'I', 'O', 'U':
+			/* initials vowels after any space must stay too */
+			if WORD_EDGE(last_char) {
+				MetaphAddChr(primary, current_char)
+			}
+
+			//TODO continuar tradução
+			_ = current
+		}
+
+		last_char = current_char
 	}
 
-	return res.String()
-}
-
-func isVowel(c rune) bool {
-	switch c {
-	case 'A', 'E', 'I', 'O', 'U':
-		return true
-	}
-	return false
-}
-
-func getAt(r []rune, i int) rune {
-	if i < 1 || i >= len(r) {
-		return 0
-	}
-	return r[i]
+	return primary.String()
 }
