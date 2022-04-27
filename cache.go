@@ -13,13 +13,17 @@ type Cache struct {
 	sep rune
 }
 
-//TODO separador opcional
-func NovoCache(max_length int, separator rune) *Cache {
+func NovoCache(max_length int, separator ...rune) *Cache {
+	var sep rune
+	if len(separator) > 0 {
+		sep = separator[0]
+	}
+
 	return &Cache{
 		cache: make(map[string]string),
 
 		ml:  max_length,
-		sep: separator,
+		sep: sep,
 	}
 }
 
