@@ -40,6 +40,7 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 	s = makeUpperAndClean(s)
 
 	primary := &strings.Builder{}
+	primary.Grow(24)
 
 	MetaphAddChr := (*strings.Builder).WriteRune
 	MetaphAdd := (*strings.Builder).WriteString
