@@ -37,8 +37,6 @@ func Metaphone_PTBR(str string, max_length int) string {
 }
 
 func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
-	s = makeUpperAndClean(s)
-
 	primary := &strings.Builder{}
 	primary.Grow(24)
 
@@ -51,7 +49,7 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 
 	var last_char rune
 
-	original := []rune(s)
+	original := makeUpperAndClean(s)
 	length := len(original)
 	original = append(original, separator) //separador no final, pra WORD_EDGE funcionar, entre outras coisas
 

@@ -50,7 +50,7 @@ func tiraAcentos(c rune) rune {
 	return c
 }
 
-func makeUpperAndClean(s string) string {
+func makeUpperAndClean(s string) []rune {
 	//Não tinha isso no original mas coloquei mesmo assim
 	//TODO validar
 	s = strings.TrimSpace(s)
@@ -59,7 +59,7 @@ func makeUpperAndClean(s string) string {
 	s = strings.ToUpper(s)
 	s = strings.Map(tiraAcentos, s)
 
-	res := strings.Builder{}
+	res := make([]rune, 0, 24)
 
 	var ultimo rune
 	for _, v := range s {
@@ -68,10 +68,10 @@ func makeUpperAndClean(s string) string {
 		}
 
 		ultimo = v
-		res.WriteRune(v)
+		res = append(res, v)
 	}
 
-	return res.String()
+	return res
 }
 
 func isVowel(c rune) bool {
