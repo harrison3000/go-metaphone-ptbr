@@ -27,7 +27,10 @@
 
 package metaphoneptbr
 
-import "strings"
+import (
+	"strings"
+	"unicode"
+)
 
 func tiraAcentos(c rune) rune {
 	switch c {
@@ -55,10 +58,6 @@ func makeUpperAndClean(s string) []rune {
 	//TODO validar
 	s = strings.TrimSpace(s)
 
-	//maiuscula e sem acentos
-	s = strings.ToUpper(s)
-	s = strings.Map(tiraAcentos, s)
-
 	res := make([]rune, 0, 24)
 
 	var ultimo rune
@@ -66,6 +65,10 @@ func makeUpperAndClean(s string) []rune {
 		if ultimo == v && v != 'R' && v != 'S' {
 			continue
 		}
+
+		//maiuscula e sem acentos
+		v = unicode.ToUpper(v)
+		v = tiraAcentos(v)
 
 		ultimo = v
 		res = append(res, v)
