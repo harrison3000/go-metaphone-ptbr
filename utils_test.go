@@ -7,13 +7,13 @@ import (
 )
 
 func TestLimpeza(t *testing.T) {
-	s1 := makeUpperAndClean("eita é teste")
+	s1 := string(makeUpperAndClean("eita é teste"))
 	s2 := "EITA E TESTE"
 
 	assert.Equal(t, s1, s2)
 
-	d1 := makeUpperAndClean("carro passa lojja")
-	d2 := "CARRO PASSA LOJA"
+	d1 := string(makeUpperAndClean("carro passa lojja LlLl"))
+	d2 := "CARRO PASSA LOJA L"
 
 	assert.Equal(t, d1, d2)
 }

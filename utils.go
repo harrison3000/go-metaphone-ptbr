@@ -62,13 +62,13 @@ func makeUpperAndClean(s string) []rune {
 
 	var ultimo rune
 	for _, v := range s {
-		if ultimo == v && v != 'R' && v != 'S' {
-			continue
-		}
-
 		//maiuscula e sem acentos
 		v = unicode.ToUpper(v)
 		v = tiraAcentos(v)
+
+		if ultimo == v && v != 'R' && v != 'S' {
+			continue
+		}
 
 		ultimo = v
 		res = append(res, v)
