@@ -81,6 +81,7 @@ var pares = map[string]string{
 	"welington":      "VLNGTM",
 	"ótimo":          "OTM",
 	"último":         "UTM",
+	"ghst":           "GJST",
 }
 
 func TestMeta(t *testing.T) {
