@@ -95,3 +95,9 @@ func TestMeta(t *testing.T) {
 	ress := Metaphone_PTBR_s("odio.amor.cágado.jabutí.ryzen.coreissete", 99, '.')
 	assert.Equal(t, "OD.AM2.KGD.JBT.2ZM.KRST", ress, "Teste com separador falhou")
 }
+
+func BenchmarkMeta(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Metaphone_PTBR("Anticonstitucionalissimamente", 99)
+	}
+}
