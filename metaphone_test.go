@@ -86,19 +86,19 @@ var pares = map[string]string{
 
 func TestMeta(t *testing.T) {
 	for k, v := range pares {
-		res := Metaphone_PTBR(k)
+		res := Metaphone(k)
 		assert.Equal(t, v, res, "Teste falhou em: %s", k)
 	}
 
-	resl := Metaphone_PTBR("paralelepipedo")
+	resl := Metaphone("paralelepipedo")
 	assert.Equal(t, "PRLL", resl, "Teste com limite falhou")
 
-	ress := Metaphone_PTBR_s("odio.amor.cágado.jabutí.ryzen.coreissete", '.')
+	ress := Metaphone_s("odio.amor.cágado.jabutí.ryzen.coreissete", '.')
 	assert.Equal(t, "OD.AM2.KGD.JBT.2ZM.KRST", ress, "Teste com separador falhou")
 }
 
 func BenchmarkMeta(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Metaphone_PTBR("Anticonstitucionalissimamente")
+		Metaphone("Anticonstitucionalissimamente")
 	}
 }

@@ -32,11 +32,14 @@ import (
 	"unicode"
 )
 
-func Metaphone_PTBR(str string) string {
-	return Metaphone_PTBR_s(str, 0)
+// Metaphone calcula o metaphone ptbr de uma palavra só
+func Metaphone(str string) string {
+	return Metaphone_s(str, 0)
 }
 
-func Metaphone_PTBR_s(s string, separator rune) string {
+// Metaphone_s calcula o metaphone ptbr de uma frase
+// recebe o separador de palavras como segundo parametro
+func Metaphone_s(s string, separator rune) string {
 	primary := &strings.Builder{}
 	primary.Grow(24)
 
