@@ -6,8 +6,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-//Valores calculados usando o programa em C
-//foi só mudar a linha de printar o resultado para: printf("\"%s\":\"%s\",\n", argv[count-1], code);
+// Valores calculados usando o programa em C
+// foi só mudar a linha de printar o resultado para: printf("\"%s\":\"%s\",\n", argv[count-1], code);
 var pares = map[string]string{
 	"casa":           "KZ",
 	"paralelepipedo": "PRLLPPD",
@@ -86,19 +86,19 @@ var pares = map[string]string{
 
 func TestMeta(t *testing.T) {
 	for k, v := range pares {
-		res := Metaphone_PTBR(k, 99)
+		res := Metaphone_PTBR(k)
 		assert.Equal(t, v, res, "Teste falhou em: %s", k)
 	}
 
-	resl := Metaphone_PTBR("paralelepipedo", 4)
+	resl := Metaphone_PTBR("paralelepipedo")
 	assert.Equal(t, "PRLL", resl, "Teste com limite falhou")
 
-	ress := Metaphone_PTBR_s("odio.amor.cágado.jabutí.ryzen.coreissete", 99, '.')
+	ress := Metaphone_PTBR_s("odio.amor.cágado.jabutí.ryzen.coreissete", '.')
 	assert.Equal(t, "OD.AM2.KGD.JBT.2ZM.KRST", ress, "Teste com separador falhou")
 }
 
 func BenchmarkMeta(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Metaphone_PTBR("Anticonstitucionalissimamente", 99)
+		Metaphone_PTBR("Anticonstitucionalissimamente")
 	}
 }

@@ -32,11 +32,11 @@ import (
 	"unicode"
 )
 
-func Metaphone_PTBR(str string, max_length int) string {
-	return Metaphone_PTBR_s(str, max_length, 0)
+func Metaphone_PTBR(str string) string {
+	return Metaphone_PTBR_s(str, 0)
 }
 
-func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
+func Metaphone_PTBR_s(s string, separator rune) string {
 	primary := &strings.Builder{}
 	primary.Grow(24)
 
@@ -55,7 +55,7 @@ func Metaphone_PTBR_s(s string, max_length int, separator rune) string {
 
 	//Neste loop eu tentei ao maximo preservar os nome de variaveis e
 	//comentários da versão original em C
-	for current := 0; primary.Len() < max_length && current < length; {
+	for current := 0; current < length; {
 		current_char := GetAt(original, current)
 
 		if separator == current_char {
