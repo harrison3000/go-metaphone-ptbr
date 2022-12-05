@@ -90,9 +90,6 @@ func TestMeta(t *testing.T) {
 		assert.Equal(t, v, res, "Teste falhou em: %s", k)
 	}
 
-	resl := Metaphone("paralelepipedo")
-	assert.Equal(t, "PRLL", resl, "Teste com limite falhou")
-
 	ress := Metaphone_s("odio.amor.cágado.jabutí.ryzen.coreissete", '.')
 	assert.Equal(t, "OD.AM2.KGD.JBT.2ZM.KRST", ress, "Teste com separador falhou")
 }
